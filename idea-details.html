@@ -30,6 +30,28 @@
                 </div>
             </div>
 
+            <!-- إحصائيات التقييم -->
+            <div class="rating-stats">
+                <h2>📊 التقييمات</h2>
+                <div class="stats-container">
+                    <div class="stat-item support-stat">
+                        <span class="stat-icon">✅</span>
+                        <span class="stat-count" id="supportCount">0</span>
+                        <span class="stat-label">مؤيد</span>
+                    </div>
+                    <div class="stat-item neutral-stat">
+                        <span class="stat-icon">⚪</span>
+                        <span class="stat-count" id="neutralCount">0</span>
+                        <span class="stat-label">محايد</span>
+                    </div>
+                    <div class="stat-item oppose-stat">
+                        <span class="stat-icon">❌</span>
+                        <span class="stat-count" id="opposeCount">0</span>
+                        <span class="stat-label">معارض</span>
+                    </div>
+                </div>
+            </div>
+
             <!-- محتوى الفكرة -->
             <div class="detail-content">
                 <!-- النبذة -->
@@ -60,6 +82,29 @@
                 </div>
             </div>
 
+            <!-- نموذج التقييم -->
+            <div class="rating-section">
+                <h2>⭐ تقييمك</h2>
+                <p class="rating-note">يمكنك التقييم مرة واحدة وتعديله في أي وقت</p>
+                <form id="ratingForm">
+                    <div class="rating-options">
+                        <label class="rating-option">
+                            <input type="radio" name="rating" value="support" required>
+                            <span class="rating-badge support">✅ مؤيد</span>
+                        </label>
+                        <label class="rating-option">
+                            <input type="radio" name="rating" value="neutral" required>
+                            <span class="rating-badge neutral">⚪ محايد</span>
+                        </label>
+                        <label class="rating-option">
+                            <input type="radio" name="rating" value="oppose" required>
+                            <span class="rating-badge oppose">❌ معارض</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-primary" id="ratingSubmitBtn">حفظ التقييم</button>
+                </form>
+            </div>
+
             <!-- أزرار الإجراءات -->
             <div class="detail-actions" id="detailActions">
                 <button id="deleteIdeaBtn" class="btn-delete-large" style="display: none;">
@@ -67,51 +112,14 @@
                 </button>
             </div>
 
-            <!-- قسم التقييمات والتعليقات -->
+            <!-- قسم التعليقات -->
             <div class="comments-section">
-                <!-- إحصائيات التقييم -->
-                <div class="rating-stats">
-                    <h2>📊 التقييمات</h2>
-                    <div class="stats-container">
-                        <div class="stat-item support-stat">
-                            <span class="stat-icon">✅</span>
-                            <span class="stat-count" id="supportCount">0</span>
-                            <span class="stat-label">مؤيد</span>
-                        </div>
-                        <div class="stat-item neutral-stat">
-                            <span class="stat-icon">⚪</span>
-                            <span class="stat-count" id="neutralCount">0</span>
-                            <span class="stat-label">محايد</span>
-                        </div>
-                        <div class="stat-item oppose-stat">
-                            <span class="stat-icon">❌</span>
-                            <span class="stat-count" id="opposeCount">0</span>
-                            <span class="stat-label">معارض</span>
-                        </div>
+                <!-- قائمة التعليقات -->
+                <div class="comments-list">
+                    <h2>💭 التعليقات</h2>
+                    <div id="commentsContainer">
+                        <div class="loading">جاري تحميل التعليقات...</div>
                     </div>
-                </div>
-
-                <!-- نموذج التقييم -->
-                <div class="rating-section">
-                    <h2>⭐ تقييمك</h2>
-                    <p class="rating-note">يمكنك التقييم مرة واحدة وتعديله في أي وقت</p>
-                    <form id="ratingForm">
-                        <div class="rating-options">
-                            <label class="rating-option">
-                                <input type="radio" name="rating" value="support" required>
-                                <span class="rating-badge support">✅ مؤيد</span>
-                            </label>
-                            <label class="rating-option">
-                                <input type="radio" name="rating" value="neutral" required>
-                                <span class="rating-badge neutral">⚪ محايد</span>
-                            </label>
-                            <label class="rating-option">
-                                <input type="radio" name="rating" value="oppose" required>
-                                <span class="rating-badge oppose">❌ معارض</span>
-                            </label>
-                        </div>
-                        <button type="submit" class="btn-primary" id="ratingSubmitBtn">حفظ التقييم</button>
-                    </form>
                 </div>
 
                 <!-- نموذج إضافة تعليق -->
@@ -124,14 +132,6 @@
                         </div>
                         <button type="submit" class="btn-primary">إضافة التعليق</button>
                     </form>
-                </div>
-
-                <!-- قائمة التعليقات -->
-                <div class="comments-list">
-                    <h2>💭 التعليقات</h2>
-                    <div id="commentsContainer">
-                        <div class="loading">جاري تحميل التعليقات...</div>
-                    </div>
                 </div>
             </div>
         </div>
