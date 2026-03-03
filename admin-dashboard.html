@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم المدير</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="dashboard-header">
+        <h1>🔧 لوحة تحكم المدير</h1>
+        <div class="header-actions">
+            <button id="viewIdeasBtn" class="btn-secondary">عرض الأفكار</button>
+            <button id="logoutBtn" class="btn-logout">تسجيل الخروج</button>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <div class="admin-container">
+            <!-- قسم إضافة/تعديل عضو -->
+            <div class="admin-card">
+                <h2>إضافة عضو جديد</h2>
+                <form id="addMemberForm">
+                    <div class="form-group">
+                        <label for="memberUsername">اسم المستخدم:</label>
+                        <input type="text" id="memberUsername" required placeholder="مثال: user1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="memberPassword">كلمة المرور:</label>
+                        <input type="password" id="memberPassword" required placeholder="أدخل كلمة المرور">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="memberDisplayName">الاسم للعرض:</label>
+                        <input type="text" id="memberDisplayName" required placeholder="مثال: محمد أحمد">
+                    </div>
+
+                    <input type="hidden" id="editMemberId">
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" id="submitBtn">إضافة عضو</button>
+                        <button type="button" class="btn-secondary" id="cancelEditBtn" style="display:none;">إلغاء التعديل</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- قسم قائمة الأعضاء -->
+            <div class="admin-card">
+                <div class="card-header">
+                    <h2>الأعضاء المسجلين</h2>
+                    <span class="member-count" id="memberCount">0 عضو</span>
+                </div>
+                
+                <div class="members-list" id="membersList">
+                    <div class="loading">جاري تحميل الأعضاء...</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="js/admin.js"></script>
+</body>
+</html>

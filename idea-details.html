@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل الفكرة</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="dashboard-header">
+        <h1>💡 تفاصيل الفكرة</h1>
+        <div class="header-actions">
+            <button id="backBtn" class="btn-secondary">← رجوع للرئيسية</button>
+            <button id="logoutBtn" class="btn-logout">تسجيل الخروج</button>
+        </div>
+    </header>
+
+    <main class="idea-detail-main">
+        <div class="loading-container" id="loadingContainer">
+            <div class="loading">جاري تحميل الفكرة...</div>
+        </div>
+
+        <div class="idea-detail-container" id="ideaDetailContainer" style="display: none;">
+            <!-- عنوان الفكرة -->
+            <div class="detail-header">
+                <h1 class="idea-title" id="ideaTitle"></h1>
+                <div class="idea-meta">
+                    <span class="idea-author" id="ideaAuthor"></span>
+                    <span class="idea-date" id="ideaDate"></span>
+                </div>
+            </div>
+
+            <!-- محتوى الفكرة -->
+            <div class="detail-content">
+                <!-- النبذة -->
+                <div class="detail-section description-section">
+                    <div class="section-header">
+                        <span class="section-icon">📝</span>
+                        <h2>نبذة عن الفكرة</h2>
+                    </div>
+                    <div class="section-content" id="ideaDescription"></div>
+                </div>
+
+                <!-- المشكلة -->
+                <div class="detail-section problem-section">
+                    <div class="section-header">
+                        <span class="section-icon">⚠️</span>
+                        <h2>المشكلة</h2>
+                    </div>
+                    <div class="section-content" id="ideaProblem"></div>
+                </div>
+
+                <!-- الحل -->
+                <div class="detail-section solution-section">
+                    <div class="section-header">
+                        <span class="section-icon">✅</span>
+                        <h2>الحل المقترح</h2>
+                    </div>
+                    <div class="section-content" id="ideaSolution"></div>
+                </div>
+            </div>
+
+            <!-- أزرار الإجراءات -->
+            <div class="detail-actions" id="detailActions">
+                <button id="deleteIdeaBtn" class="btn-delete-large" style="display: none;">
+                    🗑️ حذف الفكرة
+                </button>
+            </div>
+
+            <!-- قسم التقييمات والتعليقات -->
+            <div class="comments-section">
+                <!-- إحصائيات التقييم -->
+                <div class="rating-stats">
+                    <h2>📊 التقييمات</h2>
+                    <div class="stats-container">
+                        <div class="stat-item support-stat">
+                            <span class="stat-icon">✅</span>
+                            <span class="stat-count" id="supportCount">0</span>
+                            <span class="stat-label">مؤيد</span>
+                        </div>
+                        <div class="stat-item neutral-stat">
+                            <span class="stat-icon">⚪</span>
+                            <span class="stat-count" id="neutralCount">0</span>
+                            <span class="stat-label">محايد</span>
+                        </div>
+                        <div class="stat-item oppose-stat">
+                            <span class="stat-icon">❌</span>
+                            <span class="stat-count" id="opposeCount">0</span>
+                            <span class="stat-label">معارض</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- نموذج التقييم -->
+                <div class="rating-section">
+                    <h2>⭐ تقييمك</h2>
+                    <p class="rating-note">يمكنك التقييم مرة واحدة وتعديله في أي وقت</p>
+                    <form id="ratingForm">
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="rating" value="support" required>
+                                <span class="rating-badge support">✅ مؤيد</span>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="rating" value="neutral" required>
+                                <span class="rating-badge neutral">⚪ محايد</span>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="rating" value="oppose" required>
+                                <span class="rating-badge oppose">❌ معارض</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn-primary" id="ratingSubmitBtn">حفظ التقييم</button>
+                    </form>
+                </div>
+
+                <!-- نموذج إضافة تعليق -->
+                <div class="add-comment-section">
+                    <h2>💬 إضافة تعليق</h2>
+                    <p class="comment-note">يمكنك إضافة عدة تعليقات</p>
+                    <form id="addCommentForm">
+                        <div class="form-group">
+                            <textarea id="commentText" rows="3" required placeholder="اكتب تعليقك هنا..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">إضافة التعليق</button>
+                    </form>
+                </div>
+
+                <!-- قائمة التعليقات -->
+                <div class="comments-list">
+                    <h2>💭 التعليقات</h2>
+                    <div id="commentsContainer">
+                        <div class="loading">جاري تحميل التعليقات...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- رسالة خطأ -->
+        <div class="error-container" id="errorContainer" style="display: none;">
+            <div class="error-message-large">
+                <h2>⚠️ خطأ</h2>
+                <p id="errorMessage">لم يتم العثور على الفكرة</p>
+                <button onclick="window.location.href='dashboard.html'" class="btn-primary">
+                    العودة للرئيسية
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="js/idea-details.js"></script>
+</body>
+</html>
