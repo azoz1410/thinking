@@ -187,7 +187,7 @@ function formatTimestamp(timestamp) {
 }
 
 // عرض فكرة في العمود المناسب
-function displayIdea(idea, ideaId) {
+async function displayIdea(idea, ideaId) {
     const ideaElement = document.createElement('div');
     ideaElement.className = 'idea-card';
     ideaElement.dataset.id = ideaId;
@@ -195,14 +195,41 @@ function displayIdea(idea, ideaId) {
     const canDelete = idea.userId === currentUser.id;
     const ideaTitle = idea.title || idea.text || 'بدون عنوان';
     
+    // جلب التقييمات لهذه الفكرة
+    let supportCount = 0;
+    let neutralCount = 0;
+    let opposeCount = 0;
+    
+    try {
+        const ratingsQuery = query(
+            collection(db, 'ratings'),
+            where('ideaId', '==', ideaId)
+        );
+        const ratingsSnapshot = await getDocs(ratingsQuery);
+        
+        ratingsSnapshot.forEach((doc) => {
+            const rating = doc.data().rating;
+            if (rating === 'support') supportCount++;
+            else if (rating === 'neutral') neutralCount++;
+            else if (rating === 'oppose') opposeCount++;
+        });
+    } catch (error) {
+        console.error('خطأ في جلب التقييمات:', error);
+    }
+    
+    const totalRatings = supportCount + neutralCount + opposeCount;
+    
     ideaElement.innerHTML = `
         <div class="idea-card-header">
-            <h3 class="idea-card-title">${ideaTitle}</h3>
-        </div>
-        <div class="idea-card-body">
-            <a href="idea-details.html?id=${ideaId}" class="btn-view-details">
-                👁️ عرض التفاصيل
+            <a href="idea-details.html?id=${ideaId}" class="idea-card-title-link">
+                <h3 class="idea-card-title">${ideaTitle}</h3>
             </a>
+        </div>
+        <div class="idea-ratings-summary">
+            <span class="rating-count support">✅ ${supportCount}</span>
+            <span class="rating-count neutral">⚪ ${neutralCount}</span>
+            <span class="rating-count oppose">❌ ${opposeCount}</span>
+            <span class="total-ratings">(${totalRatings} تقييم)</span>
         </div>
         <div class="idea-footer">
             <span class="idea-time">${formatTimestamp(idea.timestamp)}</span>
@@ -252,8 +279,9 @@ onSnapshot(ideasQuery, (snapshot) => {
         if (ideas.length === 0) {
             container.innerHTML = '<div class="no-ideas">لا توجد أفكار بعد</div>';
         } else {
-            ideas.forEach(idea => {
-                const ideaElement = displayIdea(idea, idea.id);
+            // عرض الأفكار بشكل async
+            ideas.forEach(async idea => {
+                const ideaElement = await displayIdea(idea, idea.id);
                 container.appendChild(ideaElement);
             });
         }
